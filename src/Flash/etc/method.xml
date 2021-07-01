@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MethodParameters xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TopN>4</TopN>
+  <Duration>90</Duration>
+  <MS1>
+	<Analyzer>Orbitrap</Analyzer>
+    <FirstMass>500</FirstMass>
+    <LastMass>2000</LastMass>
+    <OrbitrapResolution>120000</OrbitrapResolution>
+    <AGCTarget>800000</AGCTarget>
+    <MaxIT>50</MaxIT>
+    <Microscans>1</Microscans>
+    <DataType>Centroid</DataType>
+    <RFLens>30</RFLens>
+    <SourceCID>15</SourceCID>
+  </MS1>
+  <MS2>
+    <Analyzer>Orbitrap</Analyzer>
+    <FirstMass>400</FirstMass>
+    <OrbitrapResolution>60000</OrbitrapResolution>
+    <AGCTarget>500000</AGCTarget>
+    <MaxIT>500</MaxIT>
+    <Microscans>1</Microscans>
+    <DataType>Centroid</DataType>
+    <Activation>HCD</Activation>
+    <CollisionEnergy>29</CollisionEnergy>
+  </MS2>
+  <IDA>
+    <MaxMs2CountPerMs1>4</MaxMs2CountPerMs1>
+    <QScoreThreshold>.25</QScoreThreshold>
+    <MinCharge>4</MinCharge>
+    <MaxCharge>50</MaxCharge>
+    <MinMass>500</MinMass>
+    <MaxMass>50000</MaxMass>
+    <Tolerances>
+      <double>10</double>
+      <double>10</double>
+    </Tolerances>
+    <RTWindow>180</RTWindow>
+  </IDA>
+</MethodParameters>
