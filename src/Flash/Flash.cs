@@ -157,7 +157,8 @@ namespace Flash
 
             if (cliArgs.Rename != null)//replace appender file names in configuration
             {
-                string suffix = Path.GetFileNameWithoutExtension(cliArgs.Rename);
+                string suffix = CheckLogPath(cliArgs.Rename);
+
                 appConfig.SelectSingleNode("//log4net/appender[@name='GeneralFile']/file").Attributes.GetNamedItem("value").Value = String.Format("FlashLog_{0}.log", suffix);
                 appConfig.SelectSingleNode("//log4net/appender[@name='IDAFile']/file").Attributes.GetNamedItem("value").Value = String.Format("IDALog_{0}.log", suffix);
             }
@@ -506,6 +507,25 @@ namespace Flash
             stopRequest = true;
             log.Info("Time is over");
             duration.Close();
+        }
+
+        /// <summary>
+        /// Returns still unused path for log files
+        /// </summary>
+        /// <remarks>
+        /// Internal use
+        /// </remarks>
+        /// <param name="filepath">RawFile path</param>
+        /// <returns></returns>
+        private static string CheckLogPath(string filepath)
+        {
+            string suffix = Path.GetFileNameWithoutExtension(filepath);
+
+            while (File.Exists(String.Format("FlashLog_{0}.log", suffix)) || File.Exists(String.Format("IDALog_{0}.log", suffix)))
+                suffix = String.Format("{0}_{1}", suffix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"));
+
+            return suffix;
+
         }
     }
 }

@@ -3,7 +3,7 @@
   <TopN>4</TopN>
   <Duration>90</Duration>
   <MS1>
-	<Analyzer>Orbitrap</Analyzer>
+    <Analyzer>Orbitrap</Analyzer>
     <FirstMass>500</FirstMass>
     <LastMass>2000</LastMass>
     <OrbitrapResolution>120000</OrbitrapResolution>

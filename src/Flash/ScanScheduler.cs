@@ -120,7 +120,7 @@ namespace Flash
                     else if (nextScan.Values["ScanType"] == "MSn")
                     {
                         MS2Count--;
-                        log.Debug(String.Format("POP MSn scan MZ = {0:f04} Z = {1} // AGC: {2}, MS1: {3}, MS2: {4}",
+                        log.Debug(String.Format("POP MSn scan MZ = {0} Z = {1} // AGC: {2}, MS1: {3}, MS2: {4}",
                             nextScan.Values["PrecursorMass"], nextScan.Values["ChargeStates"],
                             AGCCount, MS1Count, MS2Count));
                     }
@@ -152,7 +152,7 @@ namespace Flash
             }
             else if (scan.Values["ScanType"] == "MSn")
             {
-                return String.Format("#{0} MSn {1} [{2:f04}, {3}+]", scan.RunningNumber, scan.Values["Analyzer"], scan.Values["PrecursorMass"], scan.Values["ChargeStates"]);
+                return String.Format("#{0} MSn {1} [{2}, {3}+]", scan.RunningNumber, scan.Values["Analyzer"], scan.Values["PrecursorMass"], scan.Values["ChargeStates"]);
             }
             return "Unknown";
         }
