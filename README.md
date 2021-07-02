@@ -28,7 +28,7 @@ Advanced usage is discussed in [here](Usage.pdf)
 
 ### Requirements
 
- * **Thermo Scientific tribrid instrument**, i.e. Orbitrap Fusion, Orbitrap Fusion Lumos, Orbitrap Eclipse.
+ * **Thermo Scientific tribrid instrument**, i.e. Orbitrap Fusion, Orbitrap Fusion Lumos, Orbitrap Eclipse, with Tune version 3.4
  * **Instrument API** - https://github.com/thermofisherlsms/iapi - the API and the license should be obtained separately from Thermo
  * **.NET 4.8+**
  * **OpenMS libraries**

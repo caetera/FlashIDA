@@ -44,7 +44,7 @@ From existing Tune application installation
 
 ## Setting up FlashIDA
 
-FlashIDA does not require specific installation and can run from any valid location. It requires `FlashDeconv` that can be obtained .... and `OpenMS` libraries, minimal set is described below, while complete OpenMS installation can be used as well. Please, make sure that the running folder is writable, since FlashIDA writes log files to the working folder.
+FlashIDA does not require specific installation and can run from any valid location. It requires `FlashDeconv` version of `OpenMS.dll` library, that is distributed with the software, as well as a few other libraries from the `OpenMS` project, minimal set is described below, while complete OpenMS installation can be used as well. Please, make sure that the running folder is writable, since FlashIDA writes log files to the working folder.
 
 * Install, if it is not already installed `Microsoft Visual C++ 2015-2019 Redistributable (x64)` on the instrument computer, it can be [downloaded from Microsoft](https://aka.ms/vs/16/release/vc_redist.x64.exe)
 * Copy the following files from OpenMS `bin` folder to the folder with the software
