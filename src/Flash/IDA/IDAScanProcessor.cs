@@ -80,7 +80,7 @@ namespace Flash.IDA
                     List<PrecursorTarget> targets = flashIdaWrapper.GetIsolationWindows(msScan);
 
                     //logging of targets
-                    IDAlog.Info(String.Format("MS1 Scan# {0} RT {1:f04} (Aceess ID {2}) - {3} targets",
+                    IDAlog.Info(String.Format("MS1 Scan# {0} RT {1:f04} (Access ID {2}) - {3} targets",
                         msScan.Header["Scan"], msScan.Header["StartTime"], scanId, targets.Count));
                     if (targets.Count > 0) IDAlog.Debug(String.Join<PrecursorTarget>("\n", targets.ToArray()));
 
