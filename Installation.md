@@ -7,7 +7,7 @@ This instruction is written on 30.06.2021 for Tune application version 3.4 and t
 
 ## Thermo instrument API (iAPI)
 
-Instrument API is necessary for the software to work, you will need to obtain the iAPI libraries to build the software and the license the iAPI to run the software on your instrument
+Instrument API is necessary for the software to work, you will need to obtain the iAPI libraries to build the software and license the iAPI to run the software on your instrument
 
 The complete procedure is described in the [Tune 3.4 Update Overview](http://www.planetorbitrap.com/uploads/PlanetOrbitrapA2463.pdf), slides 51 - 58.
 
@@ -16,9 +16,9 @@ Briefly it includes the following
   2.  Log into Almanac agent on the instrument computer
   3.  Open **About Tune** menu in Tune software: Settings -> About Tune
   4.  In a dropdown menu of **License** button select **Get API License**
-  5.  Read and acept icense agreement and then generate E-Token
-  6.  The generated E-Token will be sent to the e-mail address you use to register Almanac agent
-  7.  Copy E-Token to the activation form and once the license is received activate the license.
+  5.  Read and acept license agreement and then generate E-Token
+  6.  The generated E-Token will be sent to the e-mail address you used to register Almanac agent
+  7.  Copy E-Token to the activation form and once the license is received activate it.
 
 ## Building FlashIDA tool
 
@@ -26,7 +26,7 @@ This repository contains Visual Studio (version 2019) project that can be used t
 
 Project targets .NET 4.8, if you have Tune 3.4 installed, you should have the required version of .NET already.
 
-Please, note, that you will need to copy the following DLLs into `dependecies` folder in order to build the software sucessfully.
+Please, note, that you will need to copy the following DLLs into `dependecies` folder to build the software sucessfully.
 
 From Thermo iAPI
 
@@ -40,7 +40,7 @@ From Thermo iAPI
  
 From existing Tune application installation
 
- * `Thermo.TNG.Client.API.dll`, should be located in `C:\Thermo\Instruments\TNG\{NameOfYourInstrument}\{TuneVersion}\System\Programs`
+ * `Thermo.TNG.Client.API.dll`, should be located in `C:\Thermo\Instruments\TNG\[NameOfYourInstrument]\[TuneVersion]\System\Programs`
 
 ## Setting up FlashIDA
 
@@ -54,7 +54,7 @@ FlashIDA does not require specific installation and can run from any valid locat
     + `Qt5Network.dll`
     + `SuperHirn.dll`
 * Copy `share\OpenMS` folder from OpenMS to the folder with the software, but keep the hirearchy, i.e. the software folder should contain `share` that contains `OpenMS` folder with all subfolders
-* Set the enironment variable `OPENMS_DATA_PATH` to point to the location of `OpenMS` folder that you have copied at the previous step, i.e. if you place the softwatre to `C:\FlashIDA`, the value of the variable should be `C:\FlashIDA\share\OpenMS`. It should be possible to use existing OpenMS installation as well
+* Set the enironment variable `OPENMS_DATA_PATH` to the location of `OpenMS` folder that you have copied at the previous step, i.e. if you place the softwatre to `C:\FlashIDA`, the value of the variable should be `C:\FlashIDA\share\OpenMS`. It should be possible to use existing OpenMS installation as well
 
 Software folder should look similar to this (file-level information is shown only at the first level
 ```
