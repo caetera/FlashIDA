@@ -1,12 +1,12 @@
-# FlashIDA
+# FLASHIda
 
 ## Description
 
-FlashIDA is an intelligent data acquisition method for top-down proteomics, built for Thermo Scientific tribrids. It ensures the real-time selection of high-quality precursors of diverse proteforms, using an instant m/z-intensity to mass-quality spectral transformation coupled with a machine learning-based quality assessment.
+FLASHIda is an intelligent data acquisition method for top-down proteomics, built for Thermo Scientific tribrids. It ensures the real-time selection of high-quality precursors of diverse proteforms, using an instant m/z-intensity to mass-quality spectral transformation coupled with a machine learning-based quality assessment.
 
 ## Usage
 
-FlashIDA runs as a command-line tool. While running it takes the control over the acquistion of mass spectra, i.e. which spectra will be acquired and in which order.
+FLASHIda runs as a command-line tool. While running it takes the control over the acquistion of mass spectra, i.e. which spectra will be acquired and in which order.
 The acquisition parameters can be specified using a XML-formatted method file, an example of it is provided along with the tool.
 
 The following optional arguments can be used

@@ -20,7 +20,7 @@ Briefly it includes the following
   6.  The generated E-Token will be sent to the e-mail address you used to register Almanac agent
   7.  Copy E-Token to the activation form and once the license is received activate it.
 
-## Building FlashIDA tool
+## Building FLASHIda tool
 
 This repository contains Visual Studio (version 2019) project that can be used to build the software.
 
@@ -42,9 +42,9 @@ From existing Tune application installation
 
  * `Thermo.TNG.Client.API.dll`, should be located in `C:\Thermo\Instruments\TNG\[NameOfYourInstrument]\[TuneVersion]\System\Programs`
 
-## Setting up FlashIDA
+## Setting up FLASHIda
 
-FlashIDA does not require specific installation and can run from any valid location. It requires `FlashDeconv` version of `OpenMS.dll` library, that is distributed with the software, as well as a few other libraries from the `OpenMS` project, minimal set is described below, while complete OpenMS installation can be used as well. Please, make sure that the running folder is writable, since FlashIDA writes log files to the working folder.
+FLASHIda does not require specific installation and can run from any valid location. It requires `FlashDeconv` version of `OpenMS.dll` library, that is distributed with the software, as well as a few other libraries from the `OpenMS` project, minimal set is described below, while complete OpenMS installation can be used as well. Please, make sure that the running folder is writable, since FLASHIda writes log files to the working folder.
 
 * Install, if it is not already installed `Microsoft Visual C++ 2015-2019 Redistributable (x64)` on the instrument computer, it can be [downloaded from Microsoft](https://aka.ms/vs/16/release/vc_redist.x64.exe)
 * Copy the following files from OpenMS `bin` folder to the folder with the software
