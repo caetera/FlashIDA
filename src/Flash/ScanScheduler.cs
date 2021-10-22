@@ -22,7 +22,7 @@ namespace Flash
         private int MS2Count;
         private int AGCCount;
 
-        private IFusionCustomScan defaultScan;
+        private IFusionCustomScan defaultScan; //type of scan that will be requested when nothing is in the queue
         private IFusionCustomScan agcScan;
 
         private ILog log;
@@ -58,8 +58,8 @@ namespace Flash
                 case 0: AGCCount++; break;
                 case 1: MS1Count++; break;
                 case 2: MS2Count++; break;
-                default:
-                    log.Warn(String.Format("Level == {0}", level));
+                default: //currently we only use up to MS2, if, for example, MS3 will be necessary that should be updated
+                    log.Warn(String.Format("MS Level is {0}", level));
                     break;
             }
         }
@@ -69,14 +69,14 @@ namespace Flash
         /// </summary>
         public void AddDefault()
         {
-            if (AGCCount < 2)
+            if (AGCCount < 2) //Why 2? - scheduling works smoother, if we allow 0 or 1 full cycles in the request queue (due to processing delay)
             {
                 customScans.Enqueue(agcScan);
                 log.Debug(String.Format("ADD default AGC scan as #{0}", customScans.Count));
                 AGCCount++;
             }
 
-            if (MS1Count < 2)
+            if (MS1Count < 2) //same as above
             {
                 customScans.Enqueue(defaultScan);
                 log.Debug(String.Format("ADD default MS1 scan as #{0}", customScans.Count));
@@ -88,14 +88,14 @@ namespace Flash
         }
 
         /// <summary>
-        /// Receive next scan from the queue
+        /// Receive next scan from the queue or fallback to a default scan
         /// </summary>
         /// <returns></returns>
         public IFusionCustomScan getNextScan()
         {
             log.Info(String.Format("Queue length: {0}", customScans.Count));
 
-            if (customScans.IsEmpty)
+            if (customScans.IsEmpty) //No scans in the queue => send AGC scan and put default scan in the queue to be next
             {
                 log.Debug("Empty queue - gonna send AGC scan");
                 customScans.Enqueue(defaultScan);
@@ -103,13 +103,14 @@ namespace Flash
                 log.Debug(String.Format("ADD default MS1 scan as #{0}", customScans.Count));
                 return agcScan;
             }
-            else
+            else //something is in the queue
             {
                 customScans.TryDequeue(out var nextScan);
                 if (nextScan != null)
                 {
                     if (nextScan.Values["ScanType"] == "Full")
                     {
+                        //we assume that we never use IonTrap for anything except AGC, if it ever going to change more sofisticated check is necessary
                         if (nextScan.Values["Analyzer"] == "IonTrap") AGCCount--;
                         else MS1Count--;
 
@@ -117,7 +118,7 @@ namespace Flash
                             nextScan.Values["Analyzer"], nextScan.Values["FirstMass"], nextScan.Values["LastMass"],
                             AGCCount, MS1Count, MS2Count));
                     }
-                    else if (nextScan.Values["ScanType"] == "MSn")
+                    else if (nextScan.Values["ScanType"] == "MSn") //all MSn considered MS2 (i.e. no check for the actual MS level), should be added if necessary
                     {
                         MS2Count--;
                         log.Debug(String.Format("POP MSn scan MZ = {0} Z = {1} // AGC: {2}, MS1: {3}, MS2: {4}",
@@ -127,7 +128,7 @@ namespace Flash
                     
                     return nextScan;
                 }
-                else
+                else //cannot get the scan out for some reason (hopefully never happens)
                 {
                     log.Debug("Cannot receive next scan - gonna send AGC scan");
                     customScans.Enqueue(defaultScan);
@@ -154,7 +155,7 @@ namespace Flash
             {
                 return String.Format("#{0} MSn {1} [{2}, {3}+]", scan.RunningNumber, scan.Values["Analyzer"], scan.Values["PrecursorMass"], scan.Values["ChargeStates"]);
             }
-            return "Unknown";
+            return "Unknown"; //sanity
         }
     }
 }

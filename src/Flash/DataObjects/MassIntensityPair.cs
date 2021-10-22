@@ -17,6 +17,9 @@ namespace Flash.DataObjects
             Intensity = i;
         }
 
+        /// <summary>
+        /// Mass-intensity pairs are compared using only m/z value
+        /// </summary>
         public int CompareTo(MassIntensityPair other)
         {
             return Mz.CompareTo(other.Mz);

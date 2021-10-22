@@ -147,7 +147,7 @@ namespace Flash.IDA
                 log.Error(String.Format("IDAWrapper.GetIsolationWindows reported: {0}\n{1}", idaException.Message, idaException.StackTrace));
             }
 
-            List<PrecursorTarget> result = new List<PrecursorTarget>(size);
+            List<PrecursorTarget> result = new List<PrecursorTarget>(size); //convert raw output into a list of PrecursorTarget objects
 
             for (int i = 0; i < size; i++)
             {
@@ -175,9 +175,7 @@ namespace Flash.IDA
             //always send centroided scans
             mzs = msScan.Centroids.Select(c => c.Mz).ToArray();
             ints = msScan.Centroids.Select(c => c.Intensity).ToArray();
-            IDAlog.Debug(String.Format("Scan {0} at RT {1} min is centroided; number of peaks - {2} / {3}",
-                name, rt, mzs.Length, ints.Length));
-
+            
             return GetIsolationWindows(mzs, ints, rt, msLevel, name);
         }
 
@@ -225,10 +223,10 @@ namespace Flash.IDA
         /// <returns>Boolean indicator weither the conversion was successful</returns>
         public static bool ToProfile(IEnumerable<ICentroid> centroids, int peakPoints, out MassIntensityPair[] points)
         {
-            //create lists with largest possible capacity from the start
+            //create lists with largest possible capacity from the start (performance optimization - no need for resizing)
             List<double> fullGrid = new List<double>(centroids.Count() * peakPoints);
             List<double> fullIntensity = new List<double>(fullGrid.Capacity);
-            bool success = true;
+            bool success = true; //indicate if errors happened
 
             foreach (ICentroid centroid in centroids)
             {
@@ -241,7 +239,7 @@ namespace Flash.IDA
                 {
                     double mz = centroid.Mz;
                     double intensity = centroid.Intensity;
-                    double resolution = (double)centroid.Resolution;
+                    double resolution = centroid.Resolution.Value;
 
                     double width = 2 * mz / resolution; //2 FWHM on each side ~ 5 sigma of gauss
                     double sigma = width / (4 * Math.Sqrt(2 * Math.Log(2))); // FWHM = sqrt(2 * ln(2)) * sigma_gauss

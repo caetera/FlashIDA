@@ -9,9 +9,9 @@ namespace Flash
     /// </summary>
     public class DataPipe
     {
-        private BufferBlock<IMsScan> inputScans;
-        private TransformManyBlock<IMsScan, IFusionCustomScan> scanAnalyzer;
-        private ActionBlock<IFusionCustomScan> outputScans;
+        private BufferBlock<IMsScan> inputScans; //input buffer
+        private TransformManyBlock<IMsScan, IFusionCustomScan> scanAnalyzer; //translate every input into many outputs
+        private ActionBlock<IFusionCustomScan> outputScans; //execute an action for each input
 
         //class encapsulating all method actions
         private IScanProcessor scanProcessor;
@@ -28,8 +28,8 @@ namespace Flash
             scanAnalyzer = new TransformManyBlock<IMsScan, IFusionCustomScan>(scanProcessor.ProcessMS);
             outputScans = new ActionBlock<IFusionCustomScan>(scanProcessor.OutputMS);
 
-            inputScans.LinkTo(scanAnalyzer, new DataflowLinkOptions { PropagateCompletion = true });
-            scanAnalyzer.LinkTo(outputScans, new DataflowLinkOptions { PropagateCompletion = true });
+            inputScans.LinkTo(scanAnalyzer, new DataflowLinkOptions { PropagateCompletion = true }); //scans from inputScans will be fed to scanAnalyzer
+            scanAnalyzer.LinkTo(outputScans, new DataflowLinkOptions { PropagateCompletion = true }); //output from scanAnalyzer will be fed to outputScans
         }
 
         /// <summary>

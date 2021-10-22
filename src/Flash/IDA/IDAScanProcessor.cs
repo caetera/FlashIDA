@@ -69,7 +69,7 @@ namespace Flash.IDA
         {
             List<IFusionCustomScan> scans = new List<IFusionCustomScan>();
 
-            //for FTMS MS1 scans search for precursors
+            //for FTMS MS1 scans search for precursors (exclude IT scans)
             if (msScan.Header["MSOrder"] == "1" && msScan.Header["MassAnalyzer"] == "FTMS")
             {
                 //get ScanID for logging purposes
@@ -125,7 +125,7 @@ namespace Flash.IDA
                 }
                 catch (Exception ex)
                 {
-                    IDAlog.Error(String.Format("ProcessMS, if clause failed. {0}\n{1}", ex.Message, ex.StackTrace));
+                    IDAlog.Error(String.Format("ProcessMS failed while creating MS2 scans. {0}\n{1}", ex.Message, ex.StackTrace));
                 }
 
                 scans.Add(null); //will be replaced by default scan

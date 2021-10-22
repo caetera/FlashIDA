@@ -127,14 +127,14 @@ namespace Flash
                 Environment.Exit(0);
             }
 
-            if (args.MethodPath == null)
+            if (args.MethodPath == null) //no method file provided
             {
                 args.MethodPath = Path.Combine(selfLocation, "method.xml");
             }
 
             if (!File.Exists(args.MethodPath))
             {
-                if (File.Exists(Path.Combine(selfLocation + args.MethodPath)))
+                if (File.Exists(Path.Combine(selfLocation + args.MethodPath))) //in case user provided relative path to method file
                 {
                     args.MethodPath = Path.Combine(selfLocation, args.MethodPath);
                 }
@@ -153,9 +153,9 @@ namespace Flash
             cliArgs = ParseCLI(args);
 
             XmlDocument appConfig = new XmlDocument();
-            appConfig.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            appConfig.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile); //logger configuration is stored in the {App}.config
 
-            if (cliArgs.Rename != null)//replace appender file names in configuration
+            if (cliArgs.Rename != null)//replace appender file names in logger configuration, if the rename key was provided
             {
                 string suffix = CheckLogPath(cliArgs.Rename);
 
@@ -201,7 +201,7 @@ namespace Flash
             //sender is the instrument container
             IFusionInstrumentAccessContainer instrumentContainer = (IFusionInstrumentAccessContainer)sender;
 
-            //Connect to the instrument accessor
+            //Connect to the instrument accessor, IFAIK it should be always index 1
             IFusionInstrumentAccess instrumentAccess = instrumentContainer.Get(1);
             log.Info(String.Format("Instrument {0} ({1}) is connected", instrumentAccess.InstrumentName, instrumentAccess.InstrumentId));
 
@@ -225,6 +225,7 @@ namespace Flash
             int numberOfMS = instrumentAccess.CountMsDetectors;
             log.Info(String.Format("Number of MS: {0}", numberOfMS));
 
+            //it is unlikely there will be less than one MS detector, but for sanity we are checking for it
             if (numberOfMS > 0) msscans = instrumentAccess.GetMsScanContainer(0);
 
             //interface to schedule and create scans ('false' means cooperative access)
@@ -233,12 +234,13 @@ namespace Flash
                 scanControl = control.GetScans(false) as IFusionScans;
                 log.Info("ScanControl success");
             }
-            catch (Exception ex)
+            //NOTE: it is extremly important to catch all possible exceptions in the "instrument part", unhandled exception does not crash the software the usual way, but lead to weird behavior
+            catch (Exception ex) 
             {
                 log.Error(String.Format("ScanControl failed\n{0}\n{1}", ex.Message, ex.StackTrace));
             }
  
-            //should fire when a custom scan is done (never fires as of current version of API)
+            //should fire when a custom scan is done (never fires as of current version of API), apparently fixed in API 3.5
             scanControl.CanAcceptNextCustomScan += CustomScanListner;
 
             //helper to have easier interface for scan creation
@@ -261,7 +263,7 @@ namespace Flash
 
             try
             {
-                //default AGC scan
+                //default AGC scan, scan parameters match the vendor implementation
                 agcScan = scanFactory.CreateFusionCustomScan(
                     new ScanParameters
                     {
@@ -336,7 +338,7 @@ namespace Flash
                 log.Error(String.Format("DataPipe failed: {0}\n{1}", ex.Message, ex.StackTrace));
             }
 
-            if (cliArgs.OverrideCC) //start now
+            if (cliArgs.OverrideCC) //do not wait for contact closure event - start now
             {
                 log.Info("Contact closure override");
 
@@ -344,8 +346,8 @@ namespace Flash
                 msscans.MsScanArrived += ProcessSpectrum;
 
                 //start method
-                duration = new Timer(methodParams.Duration * 60000);
-                duration.Elapsed += StopExecution;
+                duration = new Timer(methodParams.Duration * 60000); //Timer acepts milliseconds, but the duration is in minutes
+                duration.Elapsed += StopExecution; //run StopExecution when the time is up
                 duration.AutoReset = false;
                 duration.Start();
                 log.Info("Method started");
@@ -406,7 +408,7 @@ namespace Flash
         /// Handler for CanAcceptNextCustomScan event
         /// </summary>
         /// <remarks>
-        /// Never happens in the current version of API (3.4)
+        /// Never happens in the current version of API (3.4), might be fixed in 3.5
         /// </remarks>
         private static void CustomScanListner(object sender, EventArgs e)
         {
@@ -427,7 +429,8 @@ namespace Flash
                     log.Debug(String.Format("Sending Full {0} scan [{1} - {2}]; ID: {3}",
                         scan.Values["Analyzer"], scan.Values["FirstMass"], scan.Values["LastMass"], currentNumber));
                 }
-                else if (scan.Values["ScanType"] == "MSn")
+                //make sure not to ask for non-existing keys from scan.Values, the procedure will fail silently
+                else if (scan.Values["ScanType"] == "MSn") //PrecursorMass and ChargeStates exist only for MSn scans, 
                 {
                     log.Debug(String.Format("Sending MSn scan MZ = {0} Z = {1}; ID: {2}",
                         scan.Values["PrecursorMass"], scan.Values["ChargeStates"], currentNumber));
@@ -451,7 +454,7 @@ namespace Flash
 
         /// <summary>
         /// Processing routine for each scans received from the instrument
-        /// Scan is contained in <paramref name="e"/>
+        /// Scan is contained in event arhs <paramref name="e"/>
         /// </summary>
         private static void ProcessSpectrum(object sender, MsScanEventArgs e)
         {
@@ -511,6 +514,7 @@ namespace Flash
 
         /// <summary>
         /// Returns still unused path for log files
+        /// Preserve existing log files from being overwritten
         /// </summary>
         /// <remarks>
         /// Internal use
