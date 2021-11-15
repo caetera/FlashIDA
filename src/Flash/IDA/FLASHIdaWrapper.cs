@@ -335,7 +335,7 @@ namespace Flash.IDA
             var ints = new List<double>();
             var rt = .0;
             var msLevel = 1;
-            
+            var totalScore = .0;
             bool start = false;
             wfile.WriteLine("rt\tmz1\tmz2\tqScore\tcharges\tmonoMasses\tccos\tcsnr\tcos\tsnr\tcScore\tppm\tprecursorIntensity\tmassIntensity");
             while ((line = file.ReadLine()) != null)
@@ -358,7 +358,8 @@ namespace Flash.IDA
                                 rt, item.Window.Start, item.Window.End, item.Score, item.Charge, item.MonoMass, item.ChargeCos, item.ChargeSnr, item.IsoCos,
                                 item.Snr, item.ChargeScore, item.PpmError,
                                 item.PrecursorIntensity, item.PrecursorPeakGroupIntensity);
-                         //   Console.WriteLine(item);
+                            //   Console.WriteLine(item);
+                            totalScore += item.Score;
                         }
                     }
 
@@ -376,6 +377,7 @@ namespace Flash.IDA
                     ints.Add(double.Parse(token[1]));
                 }
             }
+            Console.WriteLine(@"Total QScore (i.e., expected number of PrSM identification): {0}", totalScore);
 
             wfile.Close();
             file.Close();
