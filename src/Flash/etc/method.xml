@@ -37,5 +37,6 @@
       <double>10</double>
     </Tolerances>
     <RTWindow>180</RTWindow>
+    <TargetLog>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\tmp.out</TargetLog>
   </IDA>
 </MethodParameters>

@@ -20,6 +20,8 @@ namespace Flash.IDA
 
         public double MaxMass { set; get; }
 
+        public string TargetLog { set; get; }
+
         [XmlArray()]
         public double[] Tolerances { set; get; }
         
@@ -37,7 +39,7 @@ namespace Flash.IDA
         /// <param name="minMass">Minimal precursor mass</param>
         /// <param name="maxMass">Maximal precursor mass</param>
         public IDAParameters(double[] tolerances = null, int maxMs2CountPerMs1 = 5, double qScoreThreshold = -1,
-            double rtWindow = 5, int minCharge = 1, int maxCharge = 100, double minMass = 50, double maxMass = 100000)
+            double rtWindow = 5, int minCharge = 1, int maxCharge = 100, double minMass = 50, double maxMass = 100000, string targetLog = "NONE")
         {
             Tolerances = tolerances ?? new double[] { 10, 10 };
             RTWindow = rtWindow;
@@ -47,6 +49,7 @@ namespace Flash.IDA
             MinMass = minMass;
             MaxMass = maxMass;
             QScoreThreshold = qScoreThreshold;
+            TargetLog = targetLog;
         }
 
         /// <summary>
@@ -63,8 +66,8 @@ namespace Flash.IDA
         /// <returns></returns>
         public string ToFLASHDeconvInput()
         {
-            return String.Format("max_mass_count {0} score_threshold {1} min_charge {2} max_charge {3} min_mass {4} max_mass {5} RT_window {6} tol {7}",
-                MaxMs2CountPerMs1, QScoreThreshold, MinCharge, MaxCharge, MinMass, MaxMass, RTWindow, String.Join(" ", Tolerances));
+            return String.Format("max_mass_count {0} score_threshold {1} min_charge {2} max_charge {3} min_mass {4} max_mass {5} RT_window {6} tol {7} {8}",
+                MaxMs2CountPerMs1, QScoreThreshold, MinCharge, MaxCharge, MinMass, MaxMass, RTWindow, String.Join(" ", Tolerances), TargetLog);
         }
 
     }

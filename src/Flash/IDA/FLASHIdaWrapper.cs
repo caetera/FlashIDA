@@ -48,13 +48,10 @@ namespace Flash.IDA
         /// </summary>
         /// <param name="param">FLASHIda parameters</param>
         /// <param name="log">Path for additional logging from the C++ side (optional)</param>
-        public FLASHIdaWrapper(IDAParameters param, String log = "")
+        public FLASHIdaWrapper(IDAParameters param)
         {
             string arg = param.ToFLASHDeconvInput();
-            if(log.Length > 0)
-            {
-                arg += " " + log;
-            }
+            Console.WriteLine(arg);
             m_pNativeObject = CreateFLASHIda(arg);
         }
 
@@ -319,17 +316,23 @@ namespace Flash.IDA
             //create Wrapper
             var tolerances = new double[] { 10, 10 };
             var param = new IDAParameters(tolerances, int.Parse(args[2]), double.Parse(args[3]), 180, 4, 50, 500, 50000);
-
+           
+            try
+            {
+                MethodParameters methodParams = MethodParameters.Load(@"C:\Users\KyowonJeong\openms-development\FlashIDA\src\Flash\etc\method.xml");
+                param = methodParams.IDA;
+                //Console.WriteLine(methodParams.IDA.TargetLog);
+            }
+            catch (Exception ex)
+            {
+                log.Error(String.Format("Error loading method file: {0}\n{1}", ex.Message, ex.StackTrace));
+                Environment.Exit(1);
+            }
 
             FLASHIdaWrapper w;
-            if (args.Length < 5)
-            {
-                w = new FLASHIdaWrapper(param);
-            }
-            else
-            {
-                w = new FLASHIdaWrapper(param, args[4]);
-            }
+           
+            w = new FLASHIdaWrapper(param);
+           
             // Read the file and display it line by line.  
             var mzs = new List<double>();
             var ints = new List<double>();
