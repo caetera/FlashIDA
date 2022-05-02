@@ -37,7 +37,7 @@ namespace Flash.IDA
         /// <param name="minCharge">Minimal precursor charge</param>
         /// <param name="maxCharge">Maximal precursor charge</param>
         /// <param name="minMass">Minimal precursor mass</param>
-        /// <param name="maxMass">Maximal precursor mass</param>
+        /// <param name="maxMass">Maximal precursor mass</param> 
         public IDAParameters(double[] tolerances = null, int maxMs2CountPerMs1 = 5, double qScoreThreshold = -1,
             double rtWindow = 5, int minCharge = 1, int maxCharge = 100, double minMass = 50, double maxMass = 100000, string targetLog = "NONE")
         {
