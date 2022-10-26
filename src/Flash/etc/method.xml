@@ -38,6 +38,6 @@
     </Tolerances>
     <TargetLog>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB.out</TargetLog>
     <RTWindow>120</RTWindow>
-    <TargetMode>2</TargetMode>
+    <TargetMode>0</TargetMode>
   </IDA>
 </MethodParameters>
