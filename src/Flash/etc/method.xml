@@ -27,7 +27,7 @@
   </MS2>
   <IDA>
     <MaxMs2CountPerMs1>4</MaxMs2CountPerMs1>
-    <QScoreThreshold>.25</QScoreThreshold>
+    <QScoreThreshold>.2</QScoreThreshold>
     <MinCharge>4</MinCharge>
     <MaxCharge>50</MaxCharge>
     <MinMass>500</MinMass>
