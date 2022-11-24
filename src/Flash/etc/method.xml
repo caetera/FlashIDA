@@ -36,8 +36,11 @@
       <double>10</double>
       <double>10</double>
     </Tolerances>
-    <TargetLog>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_newqscore2.out</TargetLog>
-    <RTWindow>120</RTWindow>
-    <TargetMode>0</TargetMode>
+    <TargetLogs>
+      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_newqscore1.out</string>
+      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_newqscore2.out</string>
+    </TargetLogs>
+    <RTWindow>180</RTWindow>
+    <TargetMode>1</TargetMode>
   </IDA>
 </MethodParameters>
