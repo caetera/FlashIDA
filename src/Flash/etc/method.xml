@@ -37,8 +37,7 @@
       <double>10</double>
     </Tolerances>
     <TargetLogs>
-      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_newqscore1.out</string>
-      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_newqscore2.out</string>
+      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_ref.out</string>
     </TargetLogs>
     <RTWindow>180</RTWindow>
     <TargetMode>1</TargetMode>
