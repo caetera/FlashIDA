@@ -37,9 +37,9 @@
       <double>10</double>
     </Tolerances>
     <TargetLogs>
-      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\Eclip_1487_MB_ref.out</string>
+      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\CacoE1.out</string>             
     </TargetLogs>
     <RTWindow>180</RTWindow>
-    <TargetMode>1</TargetMode>
+    <TargetMode>2</TargetMode>
   </IDA>
 </MethodParameters>
