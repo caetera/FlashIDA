@@ -40,6 +40,6 @@
       <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\CacoE1.out</string>             
     </TargetLogs>
     <RTWindow>180</RTWindow>
-    <TargetMode>2</TargetMode>
+    <TargetMode>0</TargetMode>
   </IDA>
 </MethodParameters>
