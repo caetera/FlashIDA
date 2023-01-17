@@ -29,17 +29,17 @@
     <MaxMs2CountPerMs1>4</MaxMs2CountPerMs1>
     <QScoreThreshold>.2</QScoreThreshold>
     <MinCharge>4</MinCharge>
-    <MaxCharge>50</MaxCharge>
+    <MaxCharge>70</MaxCharge>
     <MinMass>500</MinMass>
-    <MaxMass>50000</MaxMass>
+    <MaxMass>70000</MaxMass>
     <Tolerances>
       <double>10</double>
       <double>10</double>
     </Tolerances>
     <TargetLogs>
-      <string>C:\Users\KyowonJeong\Dropbox\FLASHIdaTmp\CacoE1.out</string>             
+      <string>C:\Users\KyowonJeong\Desktop\FLASHIdaTmp\Eclip_1484_MB.mzML.out</string>
     </TargetLogs>
     <RTWindow>180</RTWindow>
-    <TargetMode>0</TargetMode>
+    <TargetMode>2</TargetMode>
   </IDA>
 </MethodParameters>
