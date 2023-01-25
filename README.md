@@ -37,4 +37,4 @@ Advanced usage is discussed in [here](Usage.pdf)
 
 ## Publication
 
-Publication pending
+Jeong, K., Babović, M., Gorshkov, V. et al. FLASHIda enables intelligent data acquisition for top–down proteomics to boost proteoform identification counts. Nat Commun 13, 4407 (2022). https://doi.org/10.1038/s41467-022-31922-z
