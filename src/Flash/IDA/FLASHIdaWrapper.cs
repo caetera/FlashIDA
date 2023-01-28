@@ -7,6 +7,9 @@ using Thermo.Interfaces.SpectrumFormat_V1;
 using Flash.DataObjects;
 using System.IO;
 using log4net;
+using log4net.Core;
+using System.Xml.Linq;
+using Thermo.TNG.Client.API.MsScanContainer;
 
 namespace Flash.IDA
 {
@@ -29,6 +32,13 @@ namespace Flash.IDA
 
         [DllImport(dllName)]
         static private extern int GetPeakGroupSize(IntPtr pTestClassObjectdouble, double[] mzs, double[] ints, int length, double rt, int msLevel, string name);
+
+        [DllImport(dllName)]
+        static private extern int GetAllPeakGroupSize(IntPtr pTestClassObjectdouble);
+
+        [DllImport(dllName)]
+        static private extern void GetAllMonoisotopicMasses(IntPtr pTestClassObjectdouble, double[] monoMasses, int length);
+
 
         [DllImport(dllName)]
         static private extern void GetIsolationWindows(IntPtr pTestClassObjectdouble, double[] wstart, double[] wend, 
@@ -110,7 +120,7 @@ namespace Flash.IDA
             int size = 0;
             try
             {
-                size = GetPeakGroupSize(m_pNativeObject, mzs, ints, mzs.Length, rt, msLevel, name);
+                size = GetPeakGroupSize(m_pNativeObject, mzs, ints, mzs.Length, rt, msLevel, name);                
             }
             catch (Exception idaException)
             {
@@ -154,6 +164,23 @@ namespace Flash.IDA
 
             return result;
         }
+
+        public List<double> GetAllMonoisotopicMasses()
+        {
+            try
+            {
+                int size = GetAllPeakGroupSize(m_pNativeObject);
+                double[] masses= new double[size];
+                GetAllMonoisotopicMasses(m_pNativeObject, masses, size);
+                return masses.ToList();
+            }
+            catch (Exception idaException)
+            {
+                log.Error(String.Format("IDAWrapper.GetAllMonoisotopicMasses reported: {0}\n{1}", idaException.Message, idaException.StackTrace));
+            }
+            return null;
+        }
+
 
         /// <summary>
         /// Obtain the the list of targets for fragmentation from the current spectrum.
@@ -352,6 +379,15 @@ namespace Flash.IDA
                     if (mzs.Count > 0)
                     {
                         var l = w.GetIsolationWindows(mzs.ToArray(), ints.ToArray(), rt, msLevel, line);
+                        /*List<double> monoMasses = w.GetAllMonoisotopicMasses();
+
+                        Console.WriteLine(rt);
+                        if (l.Count > 0) Console.WriteLine(String.Join<PrecursorTarget>("\n", l.ToArray()));
+                        if (monoMasses.Count > 0)
+                        {
+                            Console.WriteLine(String.Format("AllMass={0}", String.Join<double>(" ", monoMasses.ToArray()))); ;
+                        }*/
+
                         mzs.Clear();
                         ints.Clear();
 

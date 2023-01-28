@@ -102,7 +102,7 @@ namespace Flash.IDA
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Mass={0:f05}\tZ={1}\tScore={2:f05}\tWindow=[{3:f04}-{4:f04}]\tPrecursorIntensity={5}\tPrecursorMassIntensity={6}\tFeatures=[{7:f06},{8:f06},{9:f06},{10:f06},{11:f06},{12:f06}]\tChargeRange=[{13}-{14}]", 
+            return string.Format("Mass={0}\tZ={1}\tScore={2:f05}\tWindow=[{3:f04}-{4:f04}]\tPrecursorIntensity={5:f05}\tPrecursorMassIntensity={6:f05}\tFeatures=[{7:f06},{8:f06},{9:f06},{10:f06},{11:f06},{12:f06}]\tChargeRange=[{13}-{14}]", 
                 MonoMass, Charge, Score, Window.Start, Window.End, PrecursorIntensity, PrecursorPeakGroupIntensity, ChargeCos, ChargeSnr, IsoCos, Snr, ChargeScore, PpmError, MinCharge, MaxCharge);
         }
     }

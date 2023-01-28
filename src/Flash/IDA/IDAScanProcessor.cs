@@ -78,12 +78,14 @@ namespace Flash.IDA
                 try
                 {
                     List<PrecursorTarget> targets = flashIdaWrapper.GetIsolationWindows(msScan);
-
+                    List<double> monoMasses = flashIdaWrapper.GetAllMonoisotopicMasses();
                     //logging of targets
                     IDAlog.Info(String.Format("MS1 Scan# {0} RT {1:f04} (Access ID {2}) - {3} targets",
                         msScan.Header["Scan"], msScan.Header["StartTime"], scanId, targets.Count));
                     if (targets.Count > 0) IDAlog.Debug(String.Join<PrecursorTarget>("\n", targets.ToArray()));
-
+                    if (monoMasses.Count > 0)                   
+                        IDAlog.Debug(String.Format("AllMass={0}", String.Join<double>(" ", monoMasses.ToArray())));
+                     
                     //schedule TopN fragmentation scans with highest qScore
                     foreach (PrecursorTarget precursor in targets.OrderByDescending(t => t.Score).Take(methodParams.TopN))
                     {
