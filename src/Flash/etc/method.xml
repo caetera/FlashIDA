@@ -27,19 +27,19 @@
   </MS2>
   <IDA>
     <MaxMs2CountPerMs1>4</MaxMs2CountPerMs1>
-    <QScoreThreshold>.2</QScoreThreshold>
+    <QScoreThreshold>.0</QScoreThreshold>
     <MinCharge>4</MinCharge>
     <MaxCharge>50</MaxCharge>
     <MinMass>500</MinMass>
-    <MaxMass>50000</MaxMass>
+    <MaxMass>70000</MaxMass>
     <Tolerances>
       <double>10</double>
       <double>10</double>
     </Tolerances>
     <TargetLogs>
-      <string>C:\Users\KyowonJeong\Desktop\FLASHIdaTmp\test1.log</string>
+      <string></string>
     </TargetLogs>
     <RTWindow>180</RTWindow>
-    <TargetMode>3</TargetMode>
+    <TargetMode>0</TargetMode>
   </IDA>
 </MethodParameters>
